@@ -1,0 +1,13 @@
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        // put your code here
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.next();
+        int begin = scanner.nextInt();
+        int end = scanner.nextInt();
+        
+        System.out.print(s.substring(begin, end + 1));
+    }
+}
