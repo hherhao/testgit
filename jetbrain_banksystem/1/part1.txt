@@ -22,7 +22,8 @@ public class Main {
                 Acc.searchAcc(AccMap);
             }
             else if (choose == 0) {
-                break;
+//                break;
+                System.exit(0);
             }
 
         }
@@ -85,7 +86,7 @@ class Acc {
                 }
                 else if(choose==0){
                     System.out.println("Bye!");
-                    break;
+                    System.exit(0);
                 }
             }
         }
