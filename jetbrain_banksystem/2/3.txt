@@ -1,0 +1,131 @@
+package banking;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+class Account {
+    private String cardNumber;
+    private String pin;
+
+    public Account(String cardNumber, String pin) {
+        this.cardNumber = cardNumber;
+        this.pin = pin;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+}
+
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Account> accounts = new ArrayList<>();
+
+    public static void main(String[] args) {
+        int choice;
+        do {
+            showMainMenu();
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    createAccount();
+                    break;
+                case 2:
+                    logIn();
+                    break;
+                default:
+                    break;
+            }
+        } while (choice != 0);
+    }
+
+    private static void showMainMenu() {
+        System.out.println("1. Create an account\n" +
+                "2. Log into account\n" +
+                "0. Exit");
+    }
+
+    private static void createAccount() {
+        System.out.println("Your card has been created\n" +
+                "Your card number:");
+        String cardNumber = "" + 400000 + String.format("%05d", new Random().nextInt(100000)) +
+                String.format("%04d", new Random().nextInt(10000));
+        cardNumber += calculateCheckSum(cardNumber);
+        System.out.println(cardNumber);
+        String pin = String.format("%04d", new Random().nextInt(10000));
+        System.out.println("Your card PIN:");
+        System.out.println(pin);
+        Account account = new Account(cardNumber, pin);
+        accounts.add(account);
+    }
+
+    private static void logIn() {
+        System.out.println("Enter your card number:");
+        String cardNumber = scanner.next();
+        System.out.println("Enter your PIN:");
+        String pin = scanner.next();
+        if (findAccount(cardNumber, pin)) {
+            int choice;
+            System.out.println("You have successfully logged in!");
+            do {
+                showAccountDetails();
+                choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        System.out.println("Balance: 0");
+                        break;
+                    case 2:
+                        System.out.println("You have successfully logged out!");
+                        return;
+                    default:
+                        break;
+                }
+            } while (choice != 0);
+        } else {
+            System.out.println("Wrong card number or PIN!");
+        }
+    }
+
+    private static boolean findAccount(String cardNumber, String pin) {
+        for (Account account : accounts) {
+            if (account.getCardNumber().equals(cardNumber) && account.getPin().equals(pin)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static int calculateCheckSum(String string) {
+        int[] array = new int[string.length()];
+        for (int i = 0; i < string.length(); i++) {
+            array[i] = string.charAt(i) - 48;
+        }
+        int sum = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (i % 2 == 0) {
+                array[i] *= 2;
+            }
+            if (array[i] > 9) {
+                array[i] -= 9;
+            }
+            sum += array[i];
+        }
+        if (sum % 10 == 0) {
+            return 0;
+        } else {
+            return 10 - (sum % 10);
+        }
+    }
+
+    private static void showAccountDetails() {
+        System.out.println("1. Balance\n" +
+                "2. Log out\n" +
+                "0. Exit");
+    }
+}
