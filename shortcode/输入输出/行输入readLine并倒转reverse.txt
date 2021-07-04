@@ -1,0 +1,17 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder input = new StringBuilder();
+
+        while (reader.ready()) {
+            String temp = reader.readLine();
+            input.append(temp);
+        }
+        reader.close();
+
+        System.out.println(input.reverse());
+    }
+}
