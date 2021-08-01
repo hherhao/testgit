@@ -50,3 +50,61 @@ class Car implements Comparable<Car> {
     }
 
 }
+
+
+
+
+
+import  java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Person> people = new ArrayList<>();
+        Person p3=new Person("1",1,2,2);
+        Person p2=new Person("1",2,2,2);
+        Person p1=new Person("2",1,2,2);
+        people.add(p1);
+        people.add(p2);
+        people.add(p3);
+        System.out.println(people);
+        Collections.sort(people);
+        System.out.println(people);
+        for (Person person:people){
+            System.out.println(person.getAge());
+        }
+    }
+}
+
+class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+    private int height;
+    private int weight;
+
+    Person(String name,int age,int height,int weight){
+        this.name=name;
+        this.age=age;
+        this.height=height;
+        this.weight=weight;
+    }
+    String getName(){
+        return this.name;
+    }
+    int getAge(){
+        return this.age;
+    }
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public int compareTo(Person otherPerson){
+        if (this.name.equals(otherPerson.name)){
+            return Integer.compare(this.age,otherPerson.age);
+        }
+        return this.name.compareTo(otherPerson.name);
+    }
+}
