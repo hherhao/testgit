@@ -11,6 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.println("1. Create an account");
+            #test
             System.out.println("2. Log into account");
             System.out.println("0. Exit");
             System.out.println();
